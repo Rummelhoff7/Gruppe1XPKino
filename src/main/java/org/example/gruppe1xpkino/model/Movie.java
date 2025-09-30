@@ -10,10 +10,10 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    private String img;
     private String movieTitle;
-
-    String img;
+    private String actors;
+    private boolean featureFilm;
 
     @Enumerated(EnumType.STRING) // Man specificere i JPA
     private MovieGenre genre;
@@ -21,8 +21,6 @@ public class Movie {
     @Enumerated(EnumType.STRING) // Man specificere i JPA
     private AgeLimit ageLimit;
 
-    private String actors;
-    private boolean featureFilm;
 
     @OneToMany(mappedBy = "movie")
     private List<Show> shows;
@@ -90,4 +88,5 @@ public class Movie {
     public void setImg(String img) {
         this.img = img;
     }
+
 }
