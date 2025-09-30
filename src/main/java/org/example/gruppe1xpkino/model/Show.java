@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "shows") // Er vi nødt til, show er keyword i mysql
 public class Show {
 
     @Id
