@@ -12,7 +12,8 @@ public class Movie {
     private int id;
 
     private String movieTitle;
-    private int durationInMinutes;
+
+    String img;
 
     @Enumerated(EnumType.STRING) // Man specificere i JPA
     private MovieGenre genre;
@@ -40,14 +41,6 @@ public class Movie {
 
     public void setMovieTitle(String movieTitle) {
         this.movieTitle = movieTitle;
-    }
-
-    public int getDurationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public void setDurationInMinutes(int durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
     }
 
     public MovieGenre getGenre() {
@@ -88,5 +81,13 @@ public class Movie {
 
     public void setShows(List<Show> shows) {
         this.shows = shows;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
