@@ -5,15 +5,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Theater {
+public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-
-    @OneToMany(mappedBy = "theater")
-    private List<Seat> seats;
-
-    @OneToMany(mappedBy = "theater")
+    private int id;
+    private MovieGenre genre;
+    private AgeLimit ageLimit;
+    private String actors;
+    @OneToMany(mappedBy = "movie")
     private List<Show> shows;
 }
