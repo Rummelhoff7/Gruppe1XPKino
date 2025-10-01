@@ -1,0 +1,36 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full viewport height */
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.theaterbtn {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.theaterbtn button {
+
+    width: 180px;
+    height: 100px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #cc1a56;
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.theaterbtn button:hover {
+    background-color: #680828;
+}
