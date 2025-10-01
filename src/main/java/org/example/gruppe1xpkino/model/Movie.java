@@ -1,7 +1,9 @@
 package org.example.gruppe1xpkino.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +25,8 @@ public class Movie {
 
 
     @OneToMany(mappedBy = "movie")
-    private List<Show> shows;
+    @JsonIgnore
+    private List<Show> shows = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -89,4 +92,41 @@ public class Movie {
         this.img = img;
     }
 
+    public Movie(int id, String img, String movieTitle, String actors, boolean featureFilm, MovieGenre genre, AgeLimit ageLimit, List<Show> shows) {
+        this.id = id;
+        this.img = img;
+        this.movieTitle = movieTitle;
+        this.actors = actors;
+        this.featureFilm = featureFilm;
+        this.genre = genre;
+        this.ageLimit = ageLimit;
+        this.shows = shows;
+    }
+
+    public Movie(String img, String movieTitle, String actors, boolean featureFilm, MovieGenre genre, AgeLimit ageLimit, List<Show> shows) {
+        this.img = img;
+        this.movieTitle = movieTitle;
+        this.actors = actors;
+        this.featureFilm = featureFilm;
+        this.genre = genre;
+        this.ageLimit = ageLimit;
+        this.shows = shows;
+    }
+
+    public Movie() {
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", img='" + img + '\'' +
+                ", movieTitle='" + movieTitle + '\'' +
+                ", actors='" + actors + '\'' +
+                ", featureFilm=" + featureFilm +
+                ", genre=" + genre +
+                ", ageLimit=" + ageLimit +
+                ", shows=" + shows +
+                '}';
+    }
 }
