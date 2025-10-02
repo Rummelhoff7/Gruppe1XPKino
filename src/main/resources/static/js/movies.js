@@ -1,11 +1,19 @@
 console.log("Movie page log start")
 
+const addMovieBtn = document.getElementById("addMovieBtn");
+const form = document.getElementById("addMovieForm");
+const submitBtn = document.getElementById('submitMovie');
+const container = document.getElementById('movies');
+
+addMovieBtn.addEventListener("click", () => {
+    form.classList.toggle("show");
+})
+
 async function fetchMovies() {
     try {
         const response = await fetch('/api/movies');
         const movies = await response.json();
 
-        const container = document.getElementById('movies');
         // tømmer containeren
         container.innerHTML = '';
 
@@ -20,8 +28,25 @@ async function fetchMovies() {
                 <p><strong>Genre:</strong> ${movie.genre}</p>
                 <p><strong>Age Limit:</strong> ${movie.ageLimit}</p>
                 <p><strong>Feature Film:</strong> ${movie.featureFilm ? 'Yes' : 'No'}</p>
+                <button class="deleteBtn">Delete</button>
             `;
 
+            movieCard.querySelector('.deleteBtn').addEventListener('click', async () => {
+                if (confirm(`Are you sure you want to delete "${movie.movieTitle}"?`)) {
+                    try {
+                        const response = await fetch(`/api/movies/${movie.id}`, {
+                            method: 'DELETE',
+                        });
+                        if (response.ok) {
+                            fetchMovies();
+                        } else {
+                            alert('failed to delete movie');
+                        }
+                    } catch (error) {
+                        console.log("Cannot delete movie", error);
+                    }
+                }
+            });
             container.appendChild(movieCard);
         })
     } catch (error) {
@@ -29,18 +54,25 @@ async function fetchMovies() {
     }
 }
 
-document.getElementById('addMovieBtn').addEventListener('click', () => {
-    const form = document.getElementById('addMovieForm');
-    form.style.display = form.style.display === 'none' ? 'block' : 'none';
-});
+submitBtn.addEventListener('click', async (event) => {
 
+    event.preventDefault();
 
+    // Get input values
+    const title = document.getElementById('title').value.trim();
+    const actors = document.getElementById('actors').value.trim();
+    const img = document.getElementById('img').value.trim();
 
-document.getElementById('submitMovie').addEventListener('click', async () => {
+    // Validate required fields
+    if (!title || !actors || !img) {
+        alert('Please fill all required fields.');
+        return; // stop submission
+    }
+
     const newMovie = {
-        movieTitle: document.getElementById('title').value,
-        actors: document.getElementById('actors').value,
-        img: document.getElementById('img').value,
+        movieTitle: title,
+        actors: actors,
+        img: img,
         genre: document.getElementById('genre').value,
         ageLimit: document.getElementById('ageLimit').value,
         featureFilm: document.getElementById('featureFilm').checked, // det er boolean -> checked
@@ -56,7 +88,8 @@ document.getElementById('submitMovie').addEventListener('click', async () => {
         if (response.ok) {
             alert('Movie added');
             fetchMovies();
-            document.getElementById('addMovieForm').reset();
+            form.reset();          // resets all form fields at once
+            form.classList.remove('show');  // hides the form
         } else {
             alert('Error adding movie data.');
         }

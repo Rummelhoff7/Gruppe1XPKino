@@ -13,6 +13,23 @@ public class Sweets {
     private int id;
     private String name;
     private Double price;
+    private String img;
+
+    public Sweets() {
+    }
+
+    public Sweets(String name, Double price, String img) {
+        this.name = name;
+        this.price = price;
+        this.img = img;
+    }
+
+    public Sweets(int id, String name, Double price, String img) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.img = img;
+    }
 
     public int getId() {
         return id;
@@ -36,5 +53,13 @@ public class Sweets {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

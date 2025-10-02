@@ -20,18 +20,17 @@ public class MovieController {
         return movieRepository.findAll();
     }
 
-    /*
-    @PostMapping
-    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
-        Movie newMovie = movieRepository.save(movie);
-        return ResponseEntity.ok(newMovie);
-    }
-
-     */
-
     @PostMapping
     public Movie addMovie(@RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable int id) {
+        if (!movieRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        movieRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
