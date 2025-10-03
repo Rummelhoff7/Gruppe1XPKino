@@ -154,7 +154,7 @@ async function getInputValues() {
             showTicketModal(ticket); // Show the ticket info
         })
         .catch(err => {
-            alert("Error: " + err.message); // Show user-friendly error
+            alert(err.message); // Show user-friendly error
         });
 }
 
