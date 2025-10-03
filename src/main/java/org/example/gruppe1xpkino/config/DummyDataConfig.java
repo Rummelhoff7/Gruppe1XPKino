@@ -40,7 +40,7 @@ public class DummyDataConfig {
             // 🎬 Create Movie
             Movie movie = new Movie();
             movie.setActors("Tom Hanks, Emma Watson");
-            movie.setAgeLimit(AgeLimit.AGE_11_);
+            movie.setAgeLimit(AgeLimit.AGE_11);
             movie.setFeatureFilm(true);
             movie.setGenre(MovieGenre.ACTION);
             movie.setImg("poster.jpg");
