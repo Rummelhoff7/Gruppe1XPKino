@@ -13,20 +13,22 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/shows")
-public class ShowRestController {
+public class SalesRestController {
 
     private final ShowRepository showRepository;
     private final CustomerRepository customerRepository;
     private final SeatRepository seatRepository;
     private final ReservationRepository reservationRepository;
     private final TicketRepository ticketRepository;
+    private final MovieRepository movieRepository;
 
-    public ShowRestController(ShowRepository showRepository, CustomerRepository customerRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository) {
+    public SalesRestController(ShowRepository showRepository, CustomerRepository customerRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository, MovieRepository movieRepository) {
         this.showRepository = showRepository;
         this.customerRepository = customerRepository;
         this.seatRepository = seatRepository;
         this.reservationRepository = reservationRepository;
         this.ticketRepository = ticketRepository;
+        this.movieRepository = movieRepository;
     }
 
     @GetMapping("/{id}")
@@ -38,7 +40,8 @@ public class ShowRestController {
                 show.getId(),
                 show.getMovie().getMovieTitle(),
                 show.getShowingTime(),
-                show.getTheater().getTheaterName()
+                show.getTheater().getTheaterName(),
+                show.getMovie().getAgeLimit()
         );
 
         return ResponseEntity.ok(showDTO);
@@ -57,7 +60,8 @@ public class ShowRestController {
                         show.getId(), // showId
                         show.getMovie().getMovieTitle(),
                         show.getShowingTime(),
-                        show.getTheater().getTheaterName()
+                        show.getTheater().getTheaterName(),
+                        show.getMovie().getAgeLimit()
                 ))
                 .toList();
     }
@@ -103,6 +107,12 @@ public class ShowRestController {
         ticket.setSeat(seat);
         ticket.setTheater(show.getTheater());
 
+        // check age limit
+        if(ticket.getCustomer().getAge() < show.getMovie().getAgeLimit().getMinAge()){
+            throw new IllegalArgumentException("Customer is too young for this movie.");
+        }
+
+
 //      Set ticket price
         int price = 100;
 
@@ -113,14 +123,23 @@ public class ShowRestController {
         }
 
         if (show.getMovie().isFeatureFilm()) {
-            price += 20; // or any amount you want for feature films
+            price += 20;
         } else if (!show.getMovie().isFeatureFilm()) {
             price += 10;
         }
 
         ticket.setPrice(price);
 
-        ticketRepository.save(ticket);
+
+        // check for om der allerede er købt en billet
+        if (ticketRepository.existsByReservation_Show_IdAndSeat_SeatRowAndSeat_SeatNumber(
+                show.getId(),
+                seat.getSeatRow(),
+                seat.getSeatNumber())) {
+            throw new IllegalArgumentException("Seat already taken for this show.");
+        }else {
+            ticketRepository.save(ticket);
+        }
 
         return ResponseEntity.ok(Map.of("ticketId", ticket.getId()));
     }

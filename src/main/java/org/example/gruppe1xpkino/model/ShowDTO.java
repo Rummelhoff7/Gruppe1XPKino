@@ -7,13 +7,15 @@ public class ShowDTO {
     private String movieTitle;
     private LocalDateTime showingTime;
     private String theaterName;
+    private AgeLimit ageLimit;
 
     // constructor
-    public ShowDTO(int showId, String movieTitle, LocalDateTime showingTime, String theaterName) {
+    public ShowDTO(int showId, String movieTitle, LocalDateTime showingTime, String theaterName, AgeLimit ageLimit) {
         this.showId = showId;
         this.movieTitle = movieTitle;
         this.showingTime = showingTime;
         this.theaterName = theaterName;
+        this.ageLimit = ageLimit;
     }
 
     public int getShowId() {
@@ -46,5 +48,13 @@ public class ShowDTO {
 
     public void setTheaterName(String theaterName) {
         this.theaterName = theaterName;
+    }
+
+    public AgeLimit getAgeLimit() {
+        return ageLimit;
+    }
+
+    public void setAgeLimit(AgeLimit ageLimit) {
+        this.ageLimit = ageLimit;
     }
 }

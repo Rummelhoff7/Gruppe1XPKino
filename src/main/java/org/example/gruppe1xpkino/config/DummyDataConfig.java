@@ -56,6 +56,15 @@ public class DummyDataConfig {
             movie2.setMovieTitle("For children");
             movieRepo.save(movie2);
 
+            Movie movie3 = new Movie();
+            movie3.setActors("sneglen, Sigurt");
+            movie3.setAgeLimit(AgeLimit.ALL);
+            movie3.setFeatureFilm(false);
+            movie3.setGenre(MovieGenre.COMEDY);
+            movie3.setImg("poster.jpg");
+            movie3.setMovieTitle("For children");
+            movieRepo.save(movie3);
+
             // 🏟️ Create Theater
             Theater smalltheater = new Theater();
             smalltheater.setTheaterName("small");
@@ -80,6 +89,11 @@ public class DummyDataConfig {
             show2.setMovie(movie2);
             show2.setTheater(bigttheater);
             showRepo.save(show2);
+            Show show3 = new Show();
+            show3.setShowingTime(LocalDateTime.now().plusDays(1).withHour(15).withMinute(0).withSecond(0).withNano(0));
+            show3.setMovie(movie3);
+            show3.setTheater(bigttheater);
+            showRepo.save(show3);
 
             // 💺 Create Seat
             Seat seat = new Seat();

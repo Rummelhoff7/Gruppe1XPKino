@@ -1,7 +1,7 @@
 console.log("Script loaded");
 
 // Function called on the first page when submitting a date
-function submitDate() {
+    function submitDate() {
     const dateInput = document.getElementById("ticket_date").value;
     if (!dateInput) {
         alert("Please choose a date.");
@@ -13,7 +13,7 @@ function submitDate() {
 }
 
 // Code that runs on the second page to fetch and show movies for the selected date
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     // Check if we are on the movie_date_time.html page by seeing if 'movie-list' exists
     const movieList = document.getElementById("movie-list");
     if (!movieList) return; // Exit if this is not the second page
@@ -42,23 +42,39 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Build HTML for shows
-            const html = data.map(show => `
+            const smallTheaters = data.filter(show => show.theaterName.toLowerCase() === "small");
+            const bigTheaters = data.filter(show => show.theaterName.toLowerCase() !== "small");
+
+            // Helper function to build HTML for a group
+            function renderShows(shows) {
+                return shows.map(show => `
             <div class="show-option">
                 <strong>${show.movieTitle}</strong><br>
                 Time: ${new Date(show.showingTime).toLocaleString()}<br>
-                Theater: ${show.theaterName}<br>
+                Age limit: ${show.ageLimit}<br>
                 <br>
                 <button onclick="goToSeatSelection(${show.showId})">Book This Show</button>
                 <hr>
             </div>
             `).join("");
+            }
+
+            // Render the full HTML
+                        const html = `
+                <h2>Big Theaters</h2>
+                ${renderShows(bigTheaters)}
+            
+                <h2>Small Theaters</h2>
+                ${renderShows(smallTheaters)}
+            `;
 
             movieList.innerHTML = html;
-        })
-        .catch(error => {
-            console.error("Error fetching shows:", error);
-            movieList.innerHTML = "<p>Failed to load shows.</p>";
-        });
+
+            })
+            .catch(error => {
+                console.error("Error fetching shows:", error);
+                movieList.innerHTML = "<p>Failed to load shows.</p>";
+            });
 });
 
 function goToSeatSelection(showId) {
@@ -75,6 +91,7 @@ async function getInputValues() {
     }
 
     const name = document.getElementById("inputName").value;
+    const age = document.getElementById("inputAge").value;
     const row = parseInt(document.getElementById("inputRow").value, 10);
     const seat = parseInt(document.getElementById("inputSeat").value, 10);
 
@@ -103,7 +120,7 @@ async function getInputValues() {
     const reservationData = {
         customer: {
             name: name,
-            age: 0,
+            age: age,
             phoneNumber: ""
         },
         seat: {
@@ -120,21 +137,24 @@ async function getInputValues() {
         },
         body: JSON.stringify(reservationData)
     })
-        .then(res => {
-            if (!res.ok) throw new Error("Failed to book ticket");
+        .then(async res => {
+            if(!res.ok) {
+                const errorMessage = await res.text(); // Read plain text message
+                throw new Error(errorMessage);
+            }
             return res.json();
         })
         .then(data => {
             const ticketId = data.ticketId;
 
-            fetch(`/api/shows/tickets/${ticketId}`)
-                .then(res => res.json())
-                .then(ticket => {
-                    showTicketModal(ticket);
-                });
+            return fetch(`/api/shows/tickets/${ticketId}`);
+        })
+        .then(res => res.json())
+        .then(ticket => {
+            showTicketModal(ticket); // Show the ticket info
         })
         .catch(err => {
-            alert("Error: " + err.message);
+            alert("Error: " + err.message); // Show user-friendly error
         });
 }
 
@@ -154,5 +174,7 @@ function showTicketModal(ticket) {
     `;
     document.getElementById("ticketInfo").innerHTML = info;
     document.getElementById("ticketModal").style.display = "block";
+    const returnLink = document.getElementById("return");
+    returnLink.style.display = "block";
 }
 
