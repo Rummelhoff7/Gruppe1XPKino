@@ -65,7 +65,7 @@ function goToSeatSelection(showId) {
     window.location.href = `ticket_seat.html?showId=${showId}`;
 }
 
-function getInputValues() {
+async function getInputValues() {
     const urlParams = new URLSearchParams(window.location.search);
     const showId = urlParams.get("showId");
 
@@ -75,28 +75,44 @@ function getInputValues() {
     }
 
     const name = document.getElementById("inputName").value;
-    const row = document.getElementById("inputRow").value;
-    const seat = document.getElementById("inputSeat").value;
+    const row = parseInt(document.getElementById("inputRow").value, 10);
+    const seat = parseInt(document.getElementById("inputSeat").value, 10);
 
-    if (!name || !row || !seat) {
-        alert("Please fill in all fields.");
+    if (!name || isNaN(row) || isNaN(seat)) {
+        alert("Please fill in all fields correctly.");
         return;
+    }
+
+    const showRes = await fetch(`/api/shows/${showId}`);
+    const showData = await showRes.json();
+    const theaterName = showData.theaterName?.toLowerCase();
+
+    // Validate row and seat ranges based on theater type
+    if (theaterName === "big") {
+        if (row < 1 || row > 25 || seat < 1 || seat > 16) {
+            alert("For 'big' theater, row must be 1–25 and seat must be 1–16.");
+            return;
+        }
+    } else if (theaterName === "small") {
+        if (row < 1 || row > 20 || seat < 1 || seat > 12) {
+            alert("For 'small' theater, row must be 1–20 and seat must be 1–12.");
+            return;
+        }
     }
 
     const reservationData = {
         customer: {
             name: name,
-            age: 0, // Add real value if available
-            phoneNumber: "" // Add real value if needed
+            age: 0,
+            phoneNumber: ""
         },
         seat: {
-            seatRow: parseInt(row),
-            seatNumber: parseInt(seat)
+            seatRow: row,
+            seatNumber: seat
         },
         showId: parseInt(showId)
     };
 
-    // Send data to your backend
     fetch('/api/shows/reservations/book', {
         method: 'POST',
         headers: {
@@ -116,15 +132,19 @@ function getInputValues() {
                 .then(ticket => {
                     showTicketModal(ticket);
                 });
+        })
+        .catch(err => {
+            alert("Error: " + err.message);
         });
 }
+
+
 function closeModal() {
     document.getElementById("ticketModal").style.display = "none";
 }
 
 function showTicketModal(ticket) {
     const info = `
-        <strong>Reservation ID:</strong> ${ticket.reservationId}<br>
         <strong>Name:</strong> ${ticket.customerName}<br>
         <strong>Row:</strong> ${ticket.seatRow}, Seat: ${ticket.seatNumber}<br>
         <strong>Movie:</strong> ${ticket.movieTitle}<br>

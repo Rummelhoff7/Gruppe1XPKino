@@ -17,18 +17,31 @@ public class ShowRestController {
 
     private final ShowRepository showRepository;
     private final CustomerRepository customerRepository;
-    private final TheaterRepository theaterRepository;
     private final SeatRepository seatRepository;
     private final ReservationRepository reservationRepository;
     private final TicketRepository ticketRepository;
 
-    public ShowRestController(ShowRepository showRepository, CustomerRepository customerRepository, TheaterRepository theaterRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository) {
+    public ShowRestController(ShowRepository showRepository, CustomerRepository customerRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository) {
         this.showRepository = showRepository;
         this.customerRepository = customerRepository;
-        this.theaterRepository = theaterRepository;
         this.seatRepository = seatRepository;
         this.reservationRepository = reservationRepository;
         this.ticketRepository = ticketRepository;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ShowDTO> getShowById(@PathVariable int id) {
+        Show show = showRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Show not found"));
+
+        ShowDTO showDTO = new ShowDTO(
+                show.getId(),
+                show.getMovie().getMovieTitle(),
+                show.getShowingTime(),
+                show.getTheater().getTheaterName()
+        );
+
+        return ResponseEntity.ok(showDTO);
     }
 
     @GetMapping("/by-date")
@@ -59,37 +72,54 @@ public class ShowRestController {
 
     @PostMapping("/reservations/book")
     public ResponseEntity<?> bookTicket(@RequestBody BookingRequest bookingRequest) {
-        // 1. Get the show (to access theater, etc.)
+        // Get show
         Show show = showRepository.findById(bookingRequest.getShowId())
                 .orElseThrow(() -> new RuntimeException("Show not found"));
 
-// 2. Create or get the customer
+    //  Create or get the customer
         Customer customer = new Customer();
         customer.setName(bookingRequest.getCustomer().getName());
         customer.setAge(bookingRequest.getCustomer().getAge());
         customer.setPhoneNumber(bookingRequest.getCustomer().getPhoneNumber());
         customerRepository.save(customer);
 
-// 3. Create the seat
+//      Create seat
         Seat seat = new Seat();
         seat.setSeatRow(bookingRequest.getSeat().getSeatRow());
         seat.setSeatNumber(bookingRequest.getSeat().getSeatNumber());
-        seat.setTheater(show.getTheater()); // ✅ from show
+        seat.setTheater(show.getTheater());
         seatRepository.save(seat);
 
-// ✅ 4. Now create the reservation — this is the missing step in your case
+//      Create reservation
         Reservation reservation = new Reservation();
         reservation.setCustomer(customer);
         reservation.setShow(show);
         reservationRepository.save(reservation);
 
-// 5. Now create the ticket
+//      Create ticket
         Ticket ticket = new Ticket();
         ticket.setCustomer(customer);
-        ticket.setReservation(reservation); // ✅ should now be resolved
+        ticket.setReservation(reservation);
         ticket.setSeat(seat);
         ticket.setTheater(show.getTheater());
-        ticket.setPrice(100); // example
+
+//      Set ticket price
+        int price = 100;
+
+        if (ticket.getTheater().getTheaterName().equals("big")) {
+            price += 50;
+        } else if (ticket.getTheater().getTheaterName().equals("small")) {
+            price += 25;
+        }
+
+        if (show.getMovie().isFeatureFilm()) {
+            price += 20; // or any amount you want for feature films
+        } else if (!show.getMovie().isFeatureFilm()) {
+            price += 10;
+        }
+
+        ticket.setPrice(price);
+
         ticketRepository.save(ticket);
 
         return ResponseEntity.ok(Map.of("ticketId", ticket.getId()));

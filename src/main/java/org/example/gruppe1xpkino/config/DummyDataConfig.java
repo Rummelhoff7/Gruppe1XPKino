@@ -71,12 +71,12 @@ public class DummyDataConfig {
 
             // 🎭 Create Show
             Show show = new Show();
-            show.setShowingTime(LocalDateTime.now().plusDays(1));
+            show.setShowingTime(LocalDateTime.now().plusDays(1).withHour(15).withMinute(0).withSecond(0).withNano(0));
             show.setMovie(movie);
             show.setTheater(smalltheater);
             showRepo.save(show);
             Show show2 = new Show();
-            show2.setShowingTime(LocalDateTime.now().plusDays(1));
+            show2.setShowingTime(LocalDateTime.now().plusDays(1).withHour(18).withMinute(0).withSecond(0).withNano(0));
             show2.setMovie(movie2);
             show2.setTheater(bigttheater);
             showRepo.save(show2);

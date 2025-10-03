@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class TicketInfoDTO {
 
     private int ticketId;
-    private int reservationId;
     private String customerName;
     private int seatRow;
     private int seatNumber;
@@ -16,7 +15,6 @@ public class TicketInfoDTO {
 
     public TicketInfoDTO(Ticket ticket) {
         this.ticketId = ticket.getId();
-        this.reservationId = ticket.getReservation().getId();
         this.customerName = ticket.getCustomer().getName();
         this.seatRow = ticket.getSeat().getSeatRow();
         this.seatNumber = ticket.getSeat().getSeatNumber();
@@ -28,7 +26,6 @@ public class TicketInfoDTO {
 
     // Add getters if needed for serialization
     public int getTicketId() { return ticketId; }
-    public int getReservationId() { return reservationId; }
     public String getCustomerName() { return customerName; }
     public int getSeatRow() { return seatRow; }
     public int getSeatNumber() { return seatNumber; }
@@ -39,10 +36,6 @@ public class TicketInfoDTO {
 
     public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
-    }
-
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
     }
 
     public void setCustomerName(String customerName) {
