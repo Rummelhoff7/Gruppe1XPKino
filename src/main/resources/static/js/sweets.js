@@ -47,8 +47,18 @@ async function fetchSweets() {
             // Edit button handler
             card.querySelector('.editBtn').addEventListener('click', async () => {
                 const newName = prompt("Enter new name", sweet.name) || sweet.name;
-                const newPrice = parseFloat(prompt("Enter new price:", sweet.price)) || sweet.price;
+                const newPriceInput = prompt("Enter new price:", sweet.price);
                 const newImg = prompt("Enter new img:", sweet.img) || sweet.img;
+
+                const newPrice = parseFloat(newPriceInput);
+                if (isNaN(newPrice)) {
+                    alert("Please enter valid number");
+                    return;
+                }
+                if (newPrice <= 0) {
+                    alert("Please enter valid number");
+                    return;
+                }
 
                 const updatedSweet = {
                     id: sweet.id,
@@ -64,6 +74,7 @@ async function fetchSweets() {
                         body: JSON.stringify(updatedSweet),
                     });
                     if (response.ok) {
+                        alert("Sweet updated successfully");
                         fetchSweets();
                     } else {
                         alert('Failed to update sweet');
@@ -93,17 +104,27 @@ submitBtn.addEventListener('click', async (event) => {
     event.preventDefault();
 
     const name = document.getElementById('name').value.trim();
-    const price = document.getElementById('price').value.trim();
+    const priceValue = document.getElementById('price').value.trim();
     const img = document.getElementById('img').value.trim();
 
-    if (!name || !price || !img) {
+    if (!name || !priceValue || !img) {
         alert('Please fill all required fields');
+        return;
+    }
+
+    const price = parseFloat(priceValue);
+    if (isNaN(price)) {
+        alert('⚠️ Price must be a number');
+        return;
+    }
+    if (price <= 0) {
+        alert('⚠️ Price must be greater than 0');
         return;
     }
 
     const newSweet = {
         name: name,
-        price: parseFloat(price),
+        price: parseFloat(priceValue),
         img: img,
     };
 
