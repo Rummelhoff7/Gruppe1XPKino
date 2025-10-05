@@ -1,5 +1,7 @@
 console.log("sweets page log start");
 
+
+
 async function fetchSweets() {
     try {
         const response = await fetch('/api/sweets');
@@ -77,5 +79,52 @@ async function fetchSweets() {
         console.error('Error fetching sweets:', error);
     }
 }
+
+const form = document.getElementById("addSweetForm");
+const submitBtn = document.getElementById("submitMovie");
+const addSweetBtn = document.getElementById("addSweetBtn");
+
+addSweetBtn.addEventListener("click", async () => {
+    form.classList.toggle('show');
+})
+
+
+submitBtn.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const price = document.getElementById('price').value.trim();
+    const img = document.getElementById('img').value.trim();
+
+    if (!name || !price || !img) {
+        alert('Please fill all required fields');
+        return;
+    }
+
+    const newSweet = {
+        name: name,
+        price: parseFloat(price),
+        img: img,
+    };
+
+    try {
+        const response = await fetch(`/api/sweets`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newSweet),
+        });
+
+        if (response.ok) {
+            alert('Sweets added!');
+            fetchSweets()
+            form.reset();
+            form.classList.remove('show');
+        } else
+            alert('Error adding sweet');
+    }
+    catch (error) {
+        console.error("Cannot update sweet", error);
+    }
+})
 
 document.addEventListener("DOMContentLoaded", fetchSweets);

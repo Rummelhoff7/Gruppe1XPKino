@@ -65,6 +65,7 @@ h1 {
 }
 
 /* ===== Add Movie Button ===== */
+#addSweetBtn,
 #addMovieBtn {
     display: block;
     margin: 0 auto 20px auto;
@@ -77,18 +78,19 @@ h1 {
     font-size: 1rem;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
-
+#addSweetBtn:hover,
 #addMovieBtn:hover {
     background-color: #e63600;
     box-shadow: 0 0 10px #ff3d00;
     transform: scale(1.05);
 }
-
+#addSweetBtn:active,
 #addMovieBtn:active {
     transform: scale(0.97);
 }
 
 /* ===== Add Movie Form ===== */
+#addSweetForm,
 #addMovieForm {
     max-width: 450px;
     margin: 0 auto 30px auto;
@@ -104,13 +106,14 @@ h1 {
     transition: max-height 0.5s ease, opacity 0.5s ease;
     pointer-events: none;
 }
-
+#addSweetForm.show,
 #addMovieForm.show {
     max-height: 1000px;
     opacity: 1;
     pointer-events: auto;
 }
-
+#addSweetForm input,
+#addSweetForm select,
 #addMovieForm input,
 #addMovieForm select {
     width: 100%;
@@ -122,11 +125,12 @@ h1 {
     color: #eee;
     font-size: 0.95rem;
 }
-
+#addSweetForm input::placeholder,
 #addMovieForm input::placeholder {
     color: #aaa;
 }
 
+#addSweetForm button,
 #addMovieForm button {
     width: 100%;
     padding: 12px;
@@ -140,16 +144,19 @@ h1 {
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
+#addSweetForm button:hover,
 #addMovieForm button:hover {
     background-color: #e63600;
     box-shadow: 0 0 10px #ff3d00;
     transform: scale(1.05);
 }
 
+#addSweetForm button:active,
 #addMovieForm button:active {
     transform: scale(0.97);
 }
 
+#addMovieForm label,
 #addMovieForm label {
     font-size: 0.9rem;
     color: #ccc;

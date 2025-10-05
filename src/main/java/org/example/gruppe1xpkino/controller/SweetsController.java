@@ -43,5 +43,10 @@ public class SweetsController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping
+    public ResponseEntity<Sweets> createSweet(@RequestBody Sweets sweet) {
+        Sweets savedSweet = sweetsRepository.save(sweet);
+        return ResponseEntity.ok(savedSweet);
+    }
 
 }
