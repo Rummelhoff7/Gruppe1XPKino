@@ -59,7 +59,7 @@ fetch("api/shows/sweets")
                 return sum + parseFloat(cb.dataset.price);
             }, 0);
 
-            totalPriceDiv.textContent = `Total price: ${totalPrice.toFixed(2)} kr 🎉`;
+            totalPriceDiv.textContent = `Total price: ${totalPrice.toFixed(2)} kr`;
         });
     });
 
@@ -240,7 +240,4 @@ function showTicketModal(ticket) {
     `;
     document.getElementById("ticketInfo").innerHTML = info;
     document.getElementById("ticketModal").style.display = "block";
-    const returnLink = document.getElementById("return");
-    returnLink.style.display = "block";
 }
-
