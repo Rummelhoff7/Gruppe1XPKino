@@ -116,7 +116,7 @@ h1 {
 #addSweetForm select,
 #addMovieForm input,
 #addMovieForm select {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #444;
@@ -324,4 +324,68 @@ h1 {
         flex-direction: row;
         justify-content: center;
     }
+}
+
+
+/* style for href kino  page */
+
+/* ===== Navigation Links (Kino Page) ===== */
+a {
+    text-decoration: none;
+    color: #ff3d00;
+    font-weight: bold;
+    border: 2px solid #ff3d00;
+    border-radius: 8px;
+    padding: 10px 18px;
+    display: inline-block;
+    margin: 10px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    text-shadow: 0 0 8px #ff3d00;
+}
+
+a:hover {
+    background-color: #ff3d00;
+    color: #fff;
+    box-shadow: 0 0 20px #ff3d00, 0 0 30px #ff3d00;
+    transform: translateY(-3px);
+}
+
+a:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px #ff3d00;
+}
+
+/* Optional: center the links on the page */
+body {
+    text-align: center;
+}
+
+
+/* ===== Back Button (Top Left) ===== */
+a[href="kino_administrator_page.html"] {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #ff3d00;
+    font-weight: bold;
+    border: 2px solid #ff3d00;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: transparent;
+    text-shadow: 0 0 8px #ff3d00;
+    transition: all 0.3s ease;
+}
+
+a[href="kino_administrator_page.html"]:hover {
+    background-color: #ff3d00;
+    color: #fff;
+    box-shadow: 0 0 15px #ff3d00;
+    transform: translateY(-2px);
+}
+
+a[href="kino_administrator_page.html"]:active {
+    transform: translateY(0);
+    box-shadow: 0 0 8px #ff3d00;
 }
