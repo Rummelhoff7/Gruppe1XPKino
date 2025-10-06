@@ -8,8 +8,6 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int theaterId;
-    private int customerId;
     private double price;
 
     @ManyToOne
@@ -17,8 +15,17 @@ public class Ticket {
     private Reservation reservation;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id") // FK column in Ticket table
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "theater_id")
+    private Theater theater;
+
+    @ManyToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
+
 
     public int getId() {
         return id;
@@ -26,22 +33,6 @@ public class Ticket {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTheaterId() {
-        return theaterId;
-    }
-
-    public void setTheaterId(int theaterId) {
-        this.theaterId = theaterId;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public double getPrice() {
@@ -66,5 +57,21 @@ public class Ticket {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Theater getTheater() {
+        return theater;
+    }
+
+    public void setTheater(Theater theater) {
+        this.theater = theater;
     }
 }

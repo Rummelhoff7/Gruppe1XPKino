@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Page</title>
+    <link rel="stylesheet" href="css/movies_chat.css">
+</head>
+<body>
+<h1>Movie List</h1>
+
+<a href="kino_administrator_page.html">Back</a>
+
+<div class="movie-container" id="movies"> </div>
+
+<button id="addMovieBtn">Add Movie</button>
+
+<form id="addMovieForm">
+    <input type="text" id="title" placeholder="Movie Title" required>
+    <br>
+    <input type="text" id="actors" placeholder="Actors" required>
+    <br>
+    <input type="text" id="img" placeholder="Image name (.jpg)" required>
+    <br>
+    <select id="genre">
+        <option value="HORROR">Horror</option>
+        <option value="ROMANCE">Romance</option>
+        <option value="ACTION">Action</option>
+        <option value="COMEDY">Comedy</option>
+        <option value="DRAMA">Drama</option>
+        <option value="SCIENCE_FICTION">Sci-Fi</option>
+        <option value="FANTASY">Fantasy</option>
+    </select>
+    <select id="ageLimit">
+        <option value="ALL">ALL AGES</option>
+        <option value="AGE_7">AGE 7</option>
+        <option value="AGE_11">AGE 11</option>
+        <option value="AGE_15">AGE 15</option>
+    </select>
+    <br>
+    <label>
+        Feature Film: <input type="checkbox" id="featureFilm" checked>
+    </label>
+    <br>
+    <button id="submitMovie">Submit</button>
+</form>
+
+
+
+</body>
+<script src="js/movies.js"></script>
+</html>

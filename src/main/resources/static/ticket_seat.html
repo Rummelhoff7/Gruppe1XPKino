@@ -5,11 +5,14 @@
     <title>Seat</title>
 </head>
 <body>
-
+<a href="sales_page.html">Back to sales page</a>
 <h2>Book a Seat</h2>
 
 <label for="inputName">Enter name:</label>
 <input type="text" id="inputName" name="username">
+
+<label for="inputAge">Enter Age:</label>
+<input type="number" id="inputAge" name="username">
 
 <label for="inputRow">Enter row:</label>
 <input type="number" id="inputRow" name="username">
@@ -21,6 +24,11 @@
 
 <p id="output"></p>
 
+<div id="ticketModal" style="display:none; position:fixed; top:30%; left:30%; background:white; padding:20px; border:1px solid black; z-index:1000;">
+    <h3>Ticket Confirmation</h3>
+    <p id="ticketInfo"></p>
+    <button onclick="closeModal()">Order more tickets</button>
+</div>
 
 <script src="js/sales.js"></script>
 
