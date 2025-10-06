@@ -9,40 +9,29 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Enumerated(EnumType.STRING) // Man specificere i JPA
-    private EmployeeRole role; //enum
+    @Enumerated(EnumType.STRING)
+    private EmployeeRole role;
+
     private String name;
+
+    @Column(unique = true)
+    private String username; // NEW
+
     private String password;
 
-    public int getId() {
-        return id;
-    }
+    // Getters and setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public EmployeeRole getRole() { return role; }
+    public void setRole(EmployeeRole role) { this.role = role; }
 
-    public EmployeeRole getRole() {
-        return role;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setRole(EmployeeRole role) {
-        this.role = role;
-    }
+    public String getUsername() { return username; } // NEW
+    public void setUsername(String username) { this.username = username; } // NEW
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

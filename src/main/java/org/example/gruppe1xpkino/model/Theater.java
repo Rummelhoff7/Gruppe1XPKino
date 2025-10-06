@@ -1,5 +1,6 @@
 package org.example.gruppe1xpkino.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class Theater {
     private List<Seat> seats;
 
     @OneToMany(mappedBy = "theater")
+    @JsonIgnore
     private List<Show> shows;
 
     public int getId() {

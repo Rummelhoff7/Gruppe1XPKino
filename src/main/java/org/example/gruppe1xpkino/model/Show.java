@@ -1,68 +1,69 @@
 package org.example.gruppe1xpkino.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "shows") // Er vi nødt til, show er keyword i mysql
+@Table(name = "shows") // "show" is a reserved keyword in MySQL
 public class Show {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDateTime showingTime;
 
+    private LocalDate showingStartDate;  // Start of the screening period
+    private LocalDate showingEndDate;    // End of the screening period
+    private LocalTime showingTime;       // Daily time the movie is shown
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
+    @JsonIgnore
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
+    @JsonIgnore
     private Theater theater;
 
-    @OneToMany(mappedBy = "show")
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+    @JsonIgnore // Prevent infinite recursion in JSON serialization
     private List<Reservation> reservations;
 
-    public int getId() {
-        return id;
-    }
+    // Default constructor
+    public Show() {}
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getShowingTime() {
-        return showingTime;
-    }
-
-    public void setShowingTime(LocalDateTime showingTime) {
+    // Convenience constructor
+    public Show(Movie movie, Theater theater, LocalDate showingStartDate, LocalDate showingEndDate, LocalTime showingTime) {
+        this.movie = movie;
+        this.theater = theater;
+        this.showingStartDate = showingStartDate;
+        this.showingEndDate = showingEndDate;
         this.showingTime = showingTime;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
+    // Getters and setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
+    public LocalDate getShowingStartDate() { return showingStartDate; }
+    public void setShowingStartDate(LocalDate showingStartDate) { this.showingStartDate = showingStartDate; }
 
-    public Theater getTheater() {
-        return theater;
-    }
+    public LocalDate getShowingEndDate() { return showingEndDate; }
+    public void setShowingEndDate(LocalDate showingEndDate) { this.showingEndDate = showingEndDate; }
 
-    public void setTheater(Theater theater) {
-        this.theater = theater;
-    }
+    public LocalTime getShowingTime() { return showingTime; }
+    public void setShowingTime(LocalTime showingTime) { this.showingTime = showingTime; }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
+    public Movie getMovie() { return movie; }
+    public void setMovie(Movie movie) { this.movie = movie; }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
+    public Theater getTheater() { return theater; }
+    public void setTheater(Theater theater) { this.theater = theater; }
+
+    public List<Reservation> getReservations() { return reservations; }
+    public void setReservations(List<Reservation> reservations) { this.reservations = reservations; }
 }

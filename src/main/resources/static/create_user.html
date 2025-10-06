@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create user</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret bruger</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="signup-box">
+    <h2>Opret bruger</h2>
+    <form id="signup-form">
+        <input type="text" name="firstname" placeholder="Fornavn" required>
+        <input type="text" name="lastname" placeholder="Efternavn" required>
+        <input type="text" name="username" placeholder="Brugernavn" required> <!-- NEW -->
+        <input type="password" name="password" placeholder="Kode" required>
+
+        <select name="role" required>
+            <option value="" disabled selected>Vælg rolle</option>
+            <option value="KINO_ADMINISTRATOR">Admin</option>
+            <option value="INSPECTOR">Inspector</option>
+            <option value="SALES_MANAGER">Sales Manager</option>
+        </select>
+
+        <button type="submit">Opret</button>
+    </form>
+</div>
+
+<script src="js/login.js"></script>
+
+</body>
+</html>
