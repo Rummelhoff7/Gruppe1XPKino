@@ -21,14 +21,22 @@ public class SalesRestController {
     private final ReservationRepository reservationRepository;
     private final TicketRepository ticketRepository;
     private final MovieRepository movieRepository;
+    private final SweetsRepository sweetsRepository;
 
-    public SalesRestController(ShowRepository showRepository, CustomerRepository customerRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository, MovieRepository movieRepository) {
+    public SalesRestController(ShowRepository showRepository, CustomerRepository customerRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, TicketRepository ticketRepository, MovieRepository movieRepository, SweetsRepository sweetsRepository) {
         this.showRepository = showRepository;
         this.customerRepository = customerRepository;
         this.seatRepository = seatRepository;
         this.reservationRepository = reservationRepository;
         this.ticketRepository = ticketRepository;
         this.movieRepository = movieRepository;
+        this.sweetsRepository = sweetsRepository;
+    }
+
+    @GetMapping("sweets")
+    public ResponseEntity<List<Sweets>> getSweets() {
+        List<Sweets> sweets = sweetsRepository.findAll();
+        return ResponseEntity.ok(sweets);
     }
 
     @GetMapping("/{id}")

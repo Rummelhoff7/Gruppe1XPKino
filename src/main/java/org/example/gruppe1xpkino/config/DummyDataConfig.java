@@ -134,6 +134,13 @@ public class DummyDataConfig {
             ticket.setSeat(seat);
             ticketRepo.save(ticket);
 
+
+            //  Create Sweets
+            Sweets sweets = new Sweets();
+            sweets.setName("ost");
+            sweets.setPrice(20.00);
+            sweetRepo.save(sweets);
+
             System.out.println("✅ Dummy data loaded.");
         };
     }

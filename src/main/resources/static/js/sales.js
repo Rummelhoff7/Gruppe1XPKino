@@ -1,5 +1,71 @@
 console.log("Script loaded");
 
+fetch("api/shows/sweets")
+    .then(response => response.json())
+    .then(data => {
+        const sweetsListDiv = document.getElementById("sweets-list");
+
+        const form = document.createElement("form");
+        form.id = "sweets-form";
+
+        const ul = document.createElement("ul");
+
+        data.forEach(sweet => {
+            const li = document.createElement("li");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.value = sweet.id;
+            checkbox.name = "sweet";
+
+            // Store price as a data attribute for easy access
+            checkbox.dataset.price = sweet.price;
+
+            const label = document.createElement("label");
+            label.textContent = ` ${sweet.name} - ${sweet.price.toFixed(2)} kr`;
+
+            li.appendChild(checkbox);
+            li.appendChild(label);
+            ul.appendChild(li);
+        });
+
+        form.appendChild(ul);
+
+        const buyButton = document.createElement("button");
+        buyButton.type = "submit";
+        buyButton.textContent = "Buy Selected Sweets";
+        form.appendChild(buyButton);
+
+        // Area to show the total price
+        const totalPriceDiv = document.createElement("div");
+        totalPriceDiv.id = "total-price";
+        totalPriceDiv.style.marginTop = "1em";
+        form.appendChild(totalPriceDiv);
+
+        sweetsListDiv.appendChild(form);
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const selectedCheckboxes = Array.from(form.elements["sweet"]).filter(cb => cb.checked);
+
+            if (selectedCheckboxes.length === 0) {
+                alert("Please select at least one sweet to buy.");
+                return;
+            }
+
+            // Calculate total price
+            const totalPrice = selectedCheckboxes.reduce((sum, cb) => {
+                return sum + parseFloat(cb.dataset.price);
+            }, 0);
+
+            totalPriceDiv.textContent = `Total price: ${totalPrice.toFixed(2)} kr 🎉`;
+        });
+    });
+
+
+
+
 // Function called on the first page when submitting a date
     function submitDate() {
     const dateInput = document.getElementById("ticket_date").value;
