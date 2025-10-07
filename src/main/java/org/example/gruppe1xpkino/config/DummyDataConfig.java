@@ -49,11 +49,11 @@ public class DummyDataConfig {
 
             Movie movie2 = new Movie();
             movie2.setActors("sneglen, Sigurt");
-            movie2.setAgeLimit(AgeLimit.ALL);
+            movie2.setAgeLimit(AgeLimit.AGE_7);
             movie2.setFeatureFilm(false);
             movie2.setGenre(MovieGenre.COMEDY);
             movie2.setImg("poster.jpg");
-            movie2.setMovieTitle("For children");
+            movie2.setMovieTitle("For older children");
             movieRepo.save(movie2);
 
             Movie movie3 = new Movie();
