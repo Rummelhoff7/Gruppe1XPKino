@@ -1,0 +1,45 @@
+
+async function fetchMovies() {
+    try {
+        const response = await fetch('/api/movies');
+        const movies = await response.json();
+
+        // tømmer containeren
+        container.innerHTML = '';
+
+        movies.forEach(movie => {
+            const movieCard = document.createElement('div');
+            movieCard.className = 'movie-card';
+
+            movieCard.innerHTML = `
+                <img src="/images/${movie.img}" alt="${movie.movieTitle}">
+                <h3>${movie.movieTitle}</h3>
+                <p><strong>Actors:</strong> ${movie.actors}</p>
+                <p><strong>Genre:</strong> ${movie.genre}</p>
+                <p><strong>Age Limit:</strong> ${movie.ageLimit}</p>
+                <p><strong>Feature Film:</strong> ${movie.featureFilm ? 'Yes' : 'No'}</p>
+                <button class="deleteBtn">Delete</button>
+            `;
+
+            movieCard.querySelector('.deleteBtn').addEventListener('click', async () => {
+                if (confirm(`Are you sure you want to delete "${movie.movieTitle}"?`)) {
+                    try {
+                        const response = await fetch(`/api/movies/${movie.id}`, {
+                            method: 'DELETE',
+                        });
+                        if (response.ok) {
+                            fetchMovies();
+                        } else {
+                            alert('failed to delete movie');
+                        }
+                    } catch (error) {
+                        console.log("Cannot delete movie", error);
+                    }
+                }
+            });
+            container.appendChild(movieCard);
+        })
+    } catch (error) {
+        console.error('Cannot fetch movies', error);
+    }
+}

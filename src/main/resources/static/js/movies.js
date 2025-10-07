@@ -4,15 +4,35 @@ const addMovieBtn = document.getElementById("addMovieBtn");
 const form = document.getElementById("addMovieForm");
 const submitBtn = document.getElementById('submitMovie');
 const container = document.getElementById('movies');
+const sortSelect = document.getElementById('sortMovies');
+
 
 addMovieBtn.addEventListener("click", () => {
     form.classList.toggle("show");
 })
 
 async function fetchMovies() {
+    const sortBy = sortSelect.value
+
     try {
         const response = await fetch('/api/movies');
-        const movies = await response.json();
+        let movies = await response.json();
+
+        movies.sort((a, b) => {
+            switch (sortBy) {
+                case 'title':
+                    return a.movieTitle.localeCompare(b.movieTitle);
+                case 'genre':
+                    return a.genre.localeCompare(b.genre);
+                case 'ageLimit':
+                    const ageOrder = { 'ALL': 0, 'AGE_7': 7, 'AGE_11': 11, 'AGE_15': 15 };
+                    return ageOrder[a.ageLimit] - ageOrder[b.ageLimit];
+                case 'featureFilm':
+                    return (a.featureFilm === b.featureFilm) ? 0 : a.featureFilm ? -1 : 1;
+                default:
+                    return 0;
+            }
+        });
 
         // tømmer containeren
         container.innerHTML = '';
@@ -54,8 +74,9 @@ async function fetchMovies() {
     }
 }
 
-submitBtn.addEventListener('click', async (event) => {
+sortSelect.addEventListener('change', fetchMovies);
 
+submitBtn.addEventListener('click', async (event) => {
     event.preventDefault();
 
     // Get input values
