@@ -120,3 +120,120 @@ body {
     background-color: #680828;
     transform: scale(1.1);
 }
+/* Container for show cards */
+.shows-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Individual show cards */
+.show-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+    padding: 15px;
+    background-color: white;
+    border: 2px solid #cc1a56;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect */
+.show-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background-color: #fef0f4;
+}
+
+/* Show card text */
+.show-card p {
+    margin: 5px 0;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+/* Optional: movie title bigger */
+.show-card p:first-child {
+    font-size: 18px;
+    color: #cc1a56;
+}
+
+/* Optional: responsive for small screens */
+@media (max-width: 600px) {
+    .show-card {
+        width: 140px;
+        padding: 10px;
+    }
+
+    .show-card p:first-child {
+        font-size: 16px;
+    }
+}
+/* General body style */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #cc1a56;
+    margin-bottom: 20px;
+}
+
+/* Form container */
+.form-container {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+}
+
+/* Form elements */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="date"], select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    background-color: #cc1a56;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+button:hover {
+    background-color: #680828;
+    transform: scale(1.05);
+}

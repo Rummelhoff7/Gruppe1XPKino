@@ -86,3 +86,106 @@ if (saveDatesButton) {
             .catch(err => console.error(err));
     });
 }
+
+//---------------- show list & edit ---------------
+const showsList = document.getElementById("shows-list");
+
+if (showsList) {
+    fetch("/api/current_shows")
+        .then(res => res.json())
+        .then(shows => {
+            showsList.innerHTML = "";
+
+            if (shows.length === 0) {
+                showsList.textContent = "No shows available today.";
+                return;
+            }
+
+            shows.forEach(show => {
+                const card = document.createElement("div");
+                card.className = "show-card";
+
+                const title = document.createElement("p");
+                title.textContent = "Movie: " + show.movieTitle;
+
+                const theater = document.createElement("p");
+                theater.textContent = "Theater: " + show.theaterName;
+
+                const time = document.createElement("p");
+                const showingTime = new Date(show.showingTime);
+                time.textContent = "Time: " + showingTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+                const age = document.createElement("p");
+                age.textContent = "Age limit: " + show.ageLimit;
+
+                card.appendChild(title);
+                card.appendChild(theater);
+                card.appendChild(time);
+                card.appendChild(age);
+
+                // ---------- CLICK REDIRECT ----------
+                card.addEventListener("click", () => {
+                    localStorage.setItem("selectedShowId", show.showId); // store show ID
+                    window.location.href = "/screening_form.html"; // redirect to your form page
+                });
+
+                showsList.appendChild(card);
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            showsList.textContent = "Failed to load shows.";
+        });
+}
+
+// ---------- Edit Show Form ----------
+const editForm = document.getElementById("edit-show-form");
+
+if (editForm) {
+    const selectedShowId = localStorage.getItem("selectedShowId");
+
+    // Fetch the show data by ID from the API
+    fetch(`/api/show/${selectedShowId}`)
+        .then(res => res.json())
+        .then(show => {
+            // Pre-fill the form
+            document.getElementById("theaterName").value = show.theaterName;
+
+            const showingTime = new Date(show.showingTime);
+            document.getElementById("showingTime").value = showingTime.toTimeString().slice(0, 5);
+
+            document.getElementById("startDate").value = show.showingStartDate;
+            document.getElementById("endDate").value = show.showingEndDate;
+        })
+        .catch(err => console.error(err));
+
+    // Handle form submission
+    editForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const updatedShow = {
+            showId: selectedShowId,
+            theaterName: document.getElementById("theaterName").value,
+            showingTime: document.getElementById("showingTime").value,
+            startDate: document.getElementById("startDate").value,
+            endDate: document.getElementById("endDate").value
+        };
+
+        fetch(`/api/update_show`, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updatedShow)
+        })
+            .then(res => res.json())
+            .then(data => {
+                alert("Show updated successfully!");
+
+                // Remove the stored show ID
+                localStorage.removeItem("selectedShowId");
+
+                // Redirect back to the show edit list page
+                window.location.href = "/screening_showedit.html";
+            })
+            .catch(err => console.error(err));
+    });
+}

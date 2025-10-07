@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Show</title>
+  <link rel="stylesheet" href="css/screening.css">
+</head>
+<body>
+
+<h1>Edit Show</h1>
+
+<div class="form-container">
+  <form id="edit-show-form">
+
+    <label for="theaterName">Theater:</label>
+    <select id="theaterName" name="theaterName" required>
+      <option value="Big">Big</option>
+      <option value="Small">Small</option>
+    </select>
+
+    <label for="showingTime">Showing Time:</label>
+    <select id="showingTime" name="showingTime" required>
+      <option value="15:00">15:00</option>
+      <option value="18:00">18:00</option>
+      <option value="21:00">21:00</option>
+    </select>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+
+<script src="js/screening.js"></script>
+</body>
+</html>
