@@ -43,7 +43,7 @@ document.querySelector(".login-box form")?.addEventListener("submit", function(e
         .then(success => {
             if (success) {
                 alert("Login successful!");
-                window.location.href = "sales_page.html"; // redirect on success
+                window.location.href = "Imidlertidig_all_page.html"; // redirect on success
             } else {
                 alert("Incorrect username or password.");
             }

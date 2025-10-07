@@ -21,7 +21,9 @@ public class DummyDataConfig {
             ShowRepository showRepo,
             SweetsRepository sweetRepo,
             TheaterRepository theaterRepo,
-            TicketRepository ticketRepo
+            TicketRepository ticketRepo,
+            EmployeeRepository employeeRepo
+
     ) {
         return args -> {
 
@@ -140,6 +142,14 @@ public class DummyDataConfig {
             sweets.setName("ost");
             sweets.setPrice(20.00);
             sweetRepo.save(sweets);
+
+            Employee employee = new Employee();
+            employee.setName("123");
+            employee.setUsername("123");
+            employee.setPassword("123");
+            employee.setRole(EmployeeRole.KINO_ADMINISTRATOR);
+            employeeRepo.save(employee);
+
 
             System.out.println("✅ Dummy data loaded.");
         };
