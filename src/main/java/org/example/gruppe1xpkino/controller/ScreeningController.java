@@ -9,7 +9,7 @@ import org.example.gruppe1xpkino.repository.TheaterRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -37,11 +37,15 @@ public class ScreeningController {
     public Show saveShow(@RequestBody Map<String, Object> payload) {
         Integer theaterId = (Integer) payload.get("theaterId");
         Integer movieId = (Integer) payload.get("movieId");
-        String timeStr = (String) payload.get("time");
+        String showingTimeStr = (String) payload.get("showingTime"); // must match JS
         String startDateStr = (String) payload.get("startDate");
         String endDateStr = (String) payload.get("endDate");
 
-        LocalTime showingTime = LocalTime.parse(timeStr);
+        if (showingTimeStr == null || showingTimeStr.isEmpty()) {
+            throw new RuntimeException("showingTime is missing in request");
+        }
+
+        LocalDateTime showingTime = LocalDateTime.parse(showingTimeStr); // ISO 8601 "yyyy-MM-ddTHH:mm:ss"
         LocalDate startDate = LocalDate.parse(startDateStr);
         LocalDate endDate = LocalDate.parse(endDateStr);
 

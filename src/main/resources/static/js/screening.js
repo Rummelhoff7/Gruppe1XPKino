@@ -50,17 +50,19 @@ function movieTime(timeStr) {
 const saveDatesButton = document.getElementById("save-dates");
 if (saveDatesButton) {
     saveDatesButton.addEventListener("click", () => {
-        const startDate = document.getElementById("start-date").value;
+        const startDate = document.getElementById("start-date").value; // "yyyy-MM-dd"
         const endDate = document.getElementById("end-date").value;
-
         const theaterId = Number(localStorage.getItem("selectedTheater"));
         const movieId = Number(localStorage.getItem("selectedMovie"));
-        const time = localStorage.getItem("selectedTime");
+        const time = localStorage.getItem("selectedTime"); // "HH:mm"
 
         if (!theaterId || !movieId || !time || !startDate || !endDate) {
             alert("Please select theater, movie, time, and both dates.");
             return;
         }
+
+        // Combine startDate + time into ISO string for LocalDateTime
+        const showingTime = `${startDate}T${time}:00`; // "yyyy-MM-ddTHH:mm:ss"
 
         fetch("/api/saveShow", {
             method: "POST",
@@ -68,7 +70,7 @@ if (saveDatesButton) {
             body: JSON.stringify({
                 theaterId,
                 movieId,
-                time,
+                showingTime,
                 startDate,
                 endDate
             })

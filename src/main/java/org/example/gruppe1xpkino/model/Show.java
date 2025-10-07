@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Show {
 
     private LocalDate showingStartDate;  // Start of the screening period
     private LocalDate showingEndDate;    // End of the screening period
-    private LocalTime showingTime;       // Daily time the movie is shown
+    private LocalDateTime showingTime;       // Daily time the movie is shown
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -37,7 +38,7 @@ public class Show {
     public Show() {}
 
     // Convenience constructor
-    public Show(Movie movie, Theater theater, LocalDate showingStartDate, LocalDate showingEndDate, LocalTime showingTime) {
+    public Show(Movie movie, Theater theater, LocalDate showingStartDate, LocalDate showingEndDate, LocalDateTime showingTime) {
         this.movie = movie;
         this.theater = theater;
         this.showingStartDate = showingStartDate;
@@ -55,8 +56,8 @@ public class Show {
     public LocalDate getShowingEndDate() { return showingEndDate; }
     public void setShowingEndDate(LocalDate showingEndDate) { this.showingEndDate = showingEndDate; }
 
-    public LocalTime getShowingTime() { return showingTime; }
-    public void setShowingTime(LocalTime showingTime) { this.showingTime = showingTime; }
+    public LocalDateTime getShowingTime() { return showingTime; }
+    public void setShowingTime(LocalDateTime showingTime) { this.showingTime = showingTime; }
 
     public Movie getMovie() { return movie; }
     public void setMovie(Movie movie) { this.movie = movie; }
