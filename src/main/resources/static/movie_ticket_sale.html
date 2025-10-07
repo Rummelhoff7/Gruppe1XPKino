@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="sales_page.html">Back to sales page</a>
+<h1>Ticket Sale</h1>
+<label for="movie_search">Movie:</label>
+<input type=search name=movie_search id=movie_search>
+<button onclick="movieSearch()">Search</button>
+
+<div id="movie_search_Modal" style="display:none; position:fixed; top:30%; left:30%; background:white; padding:20px; border:1px solid black; z-index:1000;">
+    <h3>Movie</h3>
+    <p id="movie_search_info"></p>
+    <button onclick="closesearchModal()">close</button>
+</div>
+
+<script src="js/sales.js"></script>
+
+</body>
+</html>

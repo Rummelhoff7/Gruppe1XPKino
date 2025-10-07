@@ -241,3 +241,39 @@ function showTicketModal(ticket) {
     document.getElementById("ticketInfo").innerHTML = info;
     document.getElementById("ticketModal").style.display = "block";
 }
+
+function movieSearch() {
+    const title = document.getElementById("movie_search").value.trim();
+    if (!title) {
+        alert("Please enter a movie title.");
+        return;
+    }
+
+    fetch(`/api/shows/title/${encodeURIComponent(title)}/earnings`)
+        .then(response => {
+            if (!response.ok) throw new Error("Movie not found");
+            return response.json();
+        })
+        .then(data => {
+            const info = `
+                <strong>Title:</strong> ${data.movieTitle}<br>
+                <strong>Tickets Sold:</strong> ${data.ticketsSold} <br>
+                <strong>Total Earned:</strong> $${data.totalEarnings.toFixed(2)}
+            `;
+            document.getElementById("movie_search_info").innerHTML = info;
+            document.getElementById("movie_search_Modal").style.display = "block";
+
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Could not find movie or fetch earnings.");
+        });
+}
+
+
+
+
+
+function closesearchModal() {
+    document.getElementById("movie_search_Modal").style.display = "none";
+}

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/shows")
@@ -38,6 +40,40 @@ public class SalesRestController {
         List<Sweets> sweets = sweetsRepository.findAll();
         return ResponseEntity.ok(sweets);
     }
+
+    @GetMapping("/title/{title}/earnings")
+    public ResponseEntity<Map<String, Object>> getMovieEarningsByTitle(@PathVariable String title) {
+        Optional<Movie> movieOpt = movieRepository.findByMovieTitleIgnoreCase(title); // assumes this exists
+        if (movieOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Movie not found"));
+        }
+
+        Movie movie = movieOpt.get();
+        int movieId = movie.getId();
+
+        List<Show> shows = showRepository.findByMovieId(movieId);
+
+        double total = 0;
+        int ticketCount = 0;
+        for (Show show : shows) {
+            List<Reservation> reservations = reservationRepository.findByShowId(show.getId());
+            for (Reservation reservation : reservations) {
+                List<Ticket> tickets = ticketRepository.findByReservationId(reservation.getId());
+                for (Ticket ticket : tickets) {
+                    total += ticket.getPrice();
+                    ticketCount++;
+                }
+            }
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("movieTitle", movie.getMovieTitle());
+        response.put("totalEarnings", total);
+        response.put("ticketsSold", ticketCount);
+
+        return ResponseEntity.ok(response);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ShowDTO> getShowById(@PathVariable int id) {

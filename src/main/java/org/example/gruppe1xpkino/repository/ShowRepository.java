@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ShowRepository extends JpaRepository<Show, Integer> {
     List<Show> findByShowingTimeBetween(LocalDateTime start, LocalDateTime end);
+    List<Show> findByMovieId(int movieId);
 }
 
 
