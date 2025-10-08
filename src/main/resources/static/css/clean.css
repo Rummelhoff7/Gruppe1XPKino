@@ -1,0 +1,342 @@
+:root{
+    --bg: #0e0e0f;
+    --panel: #1b1b1d;
+    --panel-border: #2a0f0a;
+    --orange: #ff5c1a;
+    --orange-dim: rgba(255, 92, 26, 0.15);
+    --text: #e7e7e7;
+    --muted: #a6a6a6;
+    --green: #29b85d;
+    --green-dark: #1f9b4d;
+    --red: #e74c3c;
+    --shadow: rgba(0,0,0,0.6);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.page-header {
+    padding: 22px 24px 8px;
+    text-align: center;
+}
+.page-header h1{
+    margin: 0;
+    font-size: 28px;
+    color: var(--orange);
+    text-shadow:
+            0 0 6px var(--orange),
+            0 0 18px var(--orange-dim);
+}
+
+.grid{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 22px 60px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 22px;
+}
+@media (max-width: 760px){
+    .grid{ grid-template-columns: 1fr; }
+}
+
+.card{
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    box-shadow:
+            0 8px 22px var(--shadow),
+            inset 0 0 10px var(--orange-dim);
+    padding: 16px 18px 18px;
+}
+
+.card-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.card-head h2{
+    margin: 0;
+    font-size: 18px;
+    color: #ff7a42;
+    text-shadow: 0 0 6px var(--orange-dim);
+}
+
+.image-wrap{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.image-wrap img{
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px var(--shadow);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.meta{
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+}
+.meta .label{
+    opacity: 0.9;
+}
+
+.status{
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: #222326;
+    color: #ddd;
+}
+.status.clean{
+    background: rgba(41,184,93,0.12);
+    color: #c9ffdb;
+    border-color: rgba(41,184,93,0.45);
+    text-shadow: 0 0 6px rgba(41,184,93,0.3);
+}
+.status.dirty{
+    background: rgba(231,76,60,0.12);
+    color: #ffd4d0;
+    border-color: rgba(231,76,60,0.45);
+    text-shadow: 0 0 6px rgba(231,76,60,0.25);
+}
+
+.actions{
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.btn{
+    appearance: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+.btn:active{ transform: translateY(1px); }
+
+.btn-green{
+    background: var(--green);
+    color: #051707;
+    box-shadow:
+            0 0 0 1px rgba(0,0,0,0.25),
+            0 4px 14px rgba(41,184,93,0.35);
+}
+.btn-green:hover{ filter: brightness(1.05); }
+.btn-green:active{ background: var(--green-dark); }
+
+
+
+.menu{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 22px 60px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Sørg for at <a class="btn"> ligner en knap */
+a.btn{
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Gør billeder større */
+.image-wrap img {
+    width: 100%;
+    max-width: 400px;   /* før 260px */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px var(--shadow);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Gør status-badgen større */
+.status {
+    font-weight: 700;
+    font-size: 18px;        /* før 13px */
+    padding: 10px 16px;     /* større padding */
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+}
+
+/* Gør knapper større */
+.btn {
+    padding: 14px 24px;     /* større padding */
+    font-size: 16px;        /* før 12px */
+    font-weight: 700;
+}
+.card-head h2 {
+    margin: 0;
+    font-size: 28px;      /* før 18px */
+    font-weight: 700;     /* gør teksten mere kraftig */
+    color: #ff7a42;
+    text-shadow: 0 0 6px var(--orange-dim);
+}
+/* Layout til forsiden */
+.menu {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 22px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* Sørg for at <a class="btn"> ligner knapper */
+a.btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Orange knap med glow */
+.btn-orange {
+    background: var(--orange);
+    color: #1b1b1d;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 18px 32px;
+    border-radius: 999px;
+    box-shadow:
+            0 0 8px var(--orange),
+            0 0 18px var(--orange-dim);
+    transition: filter 0.2s, transform 0.1s;
+}
+
+.btn-orange:hover {
+    filter: brightness(1.1);
+}
+
+.btn-orange:active {
+    transform: translateY(2px);
+}
+.calendar {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 22px var(--shadow), inset 0 0 10px var(--orange-dim);
+    padding: 20px;
+}
+.calendar-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.calendar-header h2 {
+    margin: 0;
+    color: var(--orange);
+    text-shadow: 0 0 6px var(--orange), 0 0 18px var(--orange-dim);
+}
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+.day {
+    background: #222326;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+.day:hover {
+    background: var(--orange-dim);
+    transform: scale(1.05);
+}
+.day:active {
+    background: var(--orange);
+    color: #1b1b1d;
+    transform: scale(0.95);
+}
+.day.empty {
+    background: transparent;
+    cursor: default;
+}
+.calendar {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 22px var(--shadow), inset 0 0 10px var(--orange-dim);
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    color: var(--orange);
+    text-shadow: 0 0 6px var(--orange), 0 0 18px var(--orange-dim);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.day {
+    background: #222326;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.day:hover {
+    background: var(--orange-dim);
+    transform: scale(1.05);
+}
+
+.day:active {
+    background: var(--orange);
+    color: #1b1b1d;
+    transform: scale(0.95);
+}
+
+.day.empty {
+    background: transparent;
+    cursor: default;
+}

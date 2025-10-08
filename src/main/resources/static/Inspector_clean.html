@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Bio Status</title>
+    <link rel="stylesheet" href="css/clean.css">
+</head>
+<body>
+<header class="page-header">
+    <h1>Cleaning status</h1>
+</header>
+
+<main class="grid">
+    <section class="card">
+        <div class="card-head"><h2>Big bio</h2></div>
+        <div class="image-wrap">
+            <img src="images/bigbio.jpg" alt="Big bio">
+        </div>
+        <div class="meta">
+            <span class="label">Status:</span>
+            <span class="status dirty">DIRTY</span>
+        </div>
+        <div class="actions">
+            <button class="btn btn-green" onclick="toggleStatus(this)">Change status</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-head"><h2>Small bio</h2></div>
+        <div class="image-wrap">
+            <img src="images/smallbio.jpg" alt="Small bio">
+        </div>
+        <div class="meta">
+            <span class="label">Status:</span>
+            <span class="status dirty">DIRTY</span>
+        </div>
+        <div class="actions">
+            <button class="btn btn-green" onclick="toggleStatus(this)">Change status</button>
+        </div>
+    </section>
+</main>
+
+<script>
+    function toggleStatus(button) {
+        const statusEl = button.closest('.card').querySelector('.status');
+        const isDirty = statusEl.textContent.trim().toUpperCase() === 'DIRTY';
+        statusEl.textContent = isDirty ? 'CLEAN' : 'DIRTY';
+        statusEl.classList.toggle('dirty', !isDirty);
+        statusEl.classList.toggle('clean', isDirty);
+    }
+</script>
+</body>
+</html>

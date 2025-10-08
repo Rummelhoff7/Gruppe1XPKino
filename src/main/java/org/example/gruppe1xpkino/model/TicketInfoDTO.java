@@ -24,6 +24,7 @@ public class TicketInfoDTO {
         this.price = ticket.getPrice();
     }
 
+
     // Add getters if needed for serialization
     public int getTicketId() { return ticketId; }
     public String getCustomerName() { return customerName; }
