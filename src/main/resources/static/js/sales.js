@@ -115,14 +115,15 @@ fetch("api/shows/sweets")
             function renderShows(shows) {
                 return shows.map(show => `
             <div class="movie-card">
+                <img src="/images/${show.movieImg}" alt="${show.movieTitle}">
                 <strong>${show.movieTitle}</strong><br>
                 Time: ${new Date(show.showingTime).toLocaleString()}<br>
                 Age limit: ${show.ageLimit}<br>
-                <img src="/images/${show.movieImg}" alt="${show.movieTitle}">
                 <br>
-                <button onclick="goToSeatSelection(${show.showId})">Book This Show</button>
+                <button class="show-btn" onclick="goToSeatSelection(${show.showId})">Book This Show</button>
                 <hr>
             </div>
+            <br>
             `).join("");
             }
 
