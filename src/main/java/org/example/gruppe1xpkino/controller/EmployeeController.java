@@ -6,6 +6,9 @@ import org.example.gruppe1xpkino.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
@@ -28,10 +31,19 @@ public class EmployeeController {
 
     // ---------------- Login ----------------
     @PostMapping("/login")
-    public boolean login(@RequestBody LoginRequest request) {
+    public Map<String, Object> login(@RequestBody LoginRequest request) {
+        Map<String, Object> response = new HashMap<>();
+
         Employee employee = employeeRepository.findByUsername(request.getUsername()).orElse(null);
 
-        return employee != null && employee.getPassword().equals(request.getPassword());
+        if (employee != null && employee.getPassword().equals(request.getPassword())) {
+            response.put("success", true);
+            response.put("role", employee.getRole().name());
+        } else {
+            response.put("success", false);
+        }
+
+        return response;
     }
 
     // ---------------- DTOs ----------------
