@@ -57,7 +57,7 @@ document.querySelector(".login-box form")?.addEventListener("submit", function (
                         window.location.href = "sales_page.html";
                         break;
                     case "INSPECTOR":
-                        alert("Inspector role — redirect not set up yet.");
+                        window.location.href = "inspector_page.html";
                         break;
                     default:
                         alert("Unknown role. Please contact admin.");
