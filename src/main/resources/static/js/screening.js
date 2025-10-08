@@ -1,4 +1,4 @@
-// -------------------- Button Hover --------------------
+// -------------------- Button Hover -------------------------
 const buttons = document.querySelectorAll('.theaterbtn button, .movietimebtn button');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => button.style.transform = 'scale(1.1)');
@@ -11,7 +11,7 @@ function chooseTheater(theaterId) {
     window.location.href = "/screening_movie_selector.html";
 }
 
-// -------------------- Movie Selection --------------------
+// -------------------- Movie Selection ----------------------
 const movieRow = document.querySelector(".movie-row");
 if (movieRow) {
     fetch("/api/screening_movies")
@@ -40,7 +40,7 @@ if (movieRow) {
         });
 }
 
-// -------------------- Time Selection --------------------
+// ------------------------- Time Selection -----------------------------
 function movieTime(timeStr) {
     localStorage.setItem("selectedTime", timeStr);
     window.location.href = "/screening_date.html";
