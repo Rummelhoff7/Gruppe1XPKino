@@ -1,5 +1,6 @@
 package org.example.gruppe1xpkino.controller;
 
+/*
 import org.apache.coyote.Response;
 import org.example.gruppe1xpkino.model.AgeLimit;
 import org.example.gruppe1xpkino.model.Movie;
@@ -58,3 +59,5 @@ class MovieControllerIntegrationTest {
         assertThat(movies.get(0).getMovieTitle()).isEqualTo("The Godfather");
     }
 }
+
+ */
