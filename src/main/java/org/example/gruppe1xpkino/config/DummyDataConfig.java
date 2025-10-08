@@ -173,6 +173,13 @@ public class DummyDataConfig {
             employee1.setRole(EmployeeRole.SALES_MANAGER);
             employeeRepo.save(employee1);
 
+            Employee employee2 = new Employee();
+            employee1.setName("12345");
+            employee1.setUsername("12345");
+            employee1.setPassword("12345");
+            employee1.setRole(EmployeeRole.INSPECTOR);
+            employeeRepo.save(employee1);
+
 
             System.out.println("✅ Dummy data loaded.");
         };
