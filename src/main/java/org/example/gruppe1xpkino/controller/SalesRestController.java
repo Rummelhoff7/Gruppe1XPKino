@@ -85,7 +85,8 @@ public class SalesRestController {
                 show.getMovie().getMovieTitle(),
                 show.getShowingTime(),
                 show.getTheater().getTheaterName(),
-                show.getMovie().getAgeLimit()
+                show.getMovie().getAgeLimit(),
+                show.getMovie().getImg()
         );
 
         return ResponseEntity.ok(showDTO);
@@ -105,7 +106,8 @@ public class SalesRestController {
                         show.getMovie().getMovieTitle(),
                         show.getShowingTime(),
                         show.getTheater().getTheaterName(),
-                        show.getMovie().getAgeLimit()
+                        show.getMovie().getAgeLimit(),
+                        show.getMovie().getImg()
                 ))
                 .toList();
     }

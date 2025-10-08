@@ -79,7 +79,8 @@ public class ScreeningController {
                         show.getMovie().getMovieTitle(),
                         show.getShowingTime(),
                         show.getTheater().getTheaterName(),
-                        show.getMovie().getAgeLimit()
+                        show.getMovie().getAgeLimit(),
+                        show.getMovie().getImg()
                 ))
                 .toList();
     }
@@ -95,7 +96,8 @@ public class ScreeningController {
                 show.getMovie().getMovieTitle(),
                 show.getShowingTime(),
                 show.getTheater().getTheaterName(),
-                show.getMovie().getAgeLimit()
+                show.getMovie().getAgeLimit(),
+                show.getMovie().getImg()
         );
     }
 

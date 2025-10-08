@@ -114,10 +114,11 @@ fetch("api/shows/sweets")
             // Helper function to build HTML for a group
             function renderShows(shows) {
                 return shows.map(show => `
-            <div class="show-option">
+            <div class="movie-card">
                 <strong>${show.movieTitle}</strong><br>
                 Time: ${new Date(show.showingTime).toLocaleString()}<br>
                 Age limit: ${show.ageLimit}<br>
+                <img src="/images/${show.movieImg}" alt="${show.movieTitle}">
                 <br>
                 <button onclick="goToSeatSelection(${show.showId})">Book This Show</button>
                 <hr>
@@ -127,10 +128,10 @@ fetch("api/shows/sweets")
 
             // Render the full HTML
                         const html = `
-                <h2>Big Theaters</h2>
+                <h2>Big Theater</h2>
                 ${renderShows(bigTheaters)}
             
-                <h2>Small Theaters</h2>
+                <h2>Small Theater</h2>
                 ${renderShows(smallTheaters)}
             `;
 

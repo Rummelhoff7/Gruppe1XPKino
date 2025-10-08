@@ -8,14 +8,16 @@ public class ShowDTO {
     private LocalDateTime showingTime;
     private String theaterName;
     private AgeLimit ageLimit;
+    private String movieImg;
 
     // constructor
-    public ShowDTO(int showId, String movieTitle, LocalDateTime showingTime, String theaterName, AgeLimit ageLimit) {
+    public ShowDTO(int showId, String movieTitle, LocalDateTime showingTime, String theaterName, AgeLimit ageLimit, String movieImg) {
         this.showId = showId;
         this.movieTitle = movieTitle;
         this.showingTime = showingTime;
         this.theaterName = theaterName;
         this.ageLimit = ageLimit;
+        this.movieImg = movieImg;
     }
 
     public int getShowId() {
@@ -56,5 +58,13 @@ public class ShowDTO {
 
     public void setAgeLimit(AgeLimit ageLimit) {
         this.ageLimit = ageLimit;
+    }
+
+    public String getMovieImg() {
+        return movieImg;
+    }
+
+    public void setMovieImg(String movieImg) {
+        this.movieImg = movieImg;
     }
 }

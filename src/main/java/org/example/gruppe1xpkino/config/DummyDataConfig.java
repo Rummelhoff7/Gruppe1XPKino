@@ -45,7 +45,7 @@ public class DummyDataConfig {
             movie.setAgeLimit(AgeLimit.AGE_11);
             movie.setFeatureFilm(true);
             movie.setGenre(MovieGenre.ACTION);
-            movie.setImg("poster.jpg");
+            movie.setImg("interstellar.jpg");
             movie.setMovieTitle("The Great Adventure");
             movieRepo.save(movie);
 
@@ -54,7 +54,7 @@ public class DummyDataConfig {
             movie2.setAgeLimit(AgeLimit.AGE_7);
             movie2.setFeatureFilm(false);
             movie2.setGenre(MovieGenre.COMEDY);
-            movie2.setImg("poster.jpg");
+            movie2.setImg("lord_of_the_rings.jpg");
             movie2.setMovieTitle("For older children");
             movieRepo.save(movie2);
 
@@ -63,7 +63,7 @@ public class DummyDataConfig {
             movie3.setAgeLimit(AgeLimit.ALL);
             movie3.setFeatureFilm(false);
             movie3.setGenre(MovieGenre.COMEDY);
-            movie3.setImg("poster.jpg");
+            movie3.setImg("godfather.jpg");
             movie3.setMovieTitle("For children");
             movieRepo.save(movie3);
 
@@ -84,7 +84,7 @@ public class DummyDataConfig {
             Show show = new Show();
             show.setShowingTime(LocalDateTime.now().plusDays(1).withHour(15).withMinute(0).withSecond(0).withNano(0));
             show.setMovie(movie);
-            show.setTheater(smalltheater);
+            show.setTheater(bigttheater);
             showRepo.save(show);
             Show show2 = new Show();
             show2.setShowingTime(LocalDateTime.now().plusDays(1).withHour(18).withMinute(0).withSecond(0).withNano(0));
@@ -92,10 +92,26 @@ public class DummyDataConfig {
             show2.setTheater(bigttheater);
             showRepo.save(show2);
             Show show3 = new Show();
-            show3.setShowingTime(LocalDateTime.now().plusDays(1).withHour(15).withMinute(0).withSecond(0).withNano(0));
+            show3.setShowingTime(LocalDateTime.now().plusDays(1).withHour(21).withMinute(0).withSecond(0).withNano(0));
             show3.setMovie(movie3);
             show3.setTheater(bigttheater);
             showRepo.save(show3);
+
+            Show show4 = new Show();
+            show4.setShowingTime(LocalDateTime.now().plusDays(1).withHour(15).withMinute(0).withSecond(0).withNano(0));
+            show4.setMovie(movie3);
+            show4.setTheater(smalltheater);
+            showRepo.save(show4);
+            Show show5 = new Show();
+            show5.setShowingTime(LocalDateTime.now().plusDays(1).withHour(18).withMinute(0).withSecond(0).withNano(0));
+            show5.setMovie(movie2);
+            show5.setTheater(smalltheater);
+            showRepo.save(show5);
+            Show show6 = new Show();
+            show6.setShowingTime(LocalDateTime.now().plusDays(1).withHour(21).withMinute(0).withSecond(0).withNano(0));
+            show6.setMovie(movie);
+            show6.setTheater(smalltheater);
+            showRepo.save(show6);
 
             // 💺 Create Seat
             Seat seat = new Seat();
