@@ -46,7 +46,7 @@ public class DummyDataConfig {
             movie.setFeatureFilm(true);
             movie.setGenre(MovieGenre.ACTION);
             movie.setImg("interstellar.jpg");
-            movie.setMovieTitle("The Great Adventure");
+            movie.setMovieTitle("Interstellar");
             movieRepo.save(movie);
 
             Movie movie2 = new Movie();
@@ -55,7 +55,7 @@ public class DummyDataConfig {
             movie2.setFeatureFilm(false);
             movie2.setGenre(MovieGenre.COMEDY);
             movie2.setImg("lord_of_the_rings.jpg");
-            movie2.setMovieTitle("For older children");
+            movie2.setMovieTitle("Lord of the Rings: Fellowship of the Ring");
             movieRepo.save(movie2);
 
             Movie movie3 = new Movie();
@@ -64,7 +64,7 @@ public class DummyDataConfig {
             movie3.setFeatureFilm(false);
             movie3.setGenre(MovieGenre.COMEDY);
             movie3.setImg("godfather.jpg");
-            movie3.setMovieTitle("For children");
+            movie3.setMovieTitle("Godfather");
             movieRepo.save(movie3);
 
             // 🏟️ Create Theater

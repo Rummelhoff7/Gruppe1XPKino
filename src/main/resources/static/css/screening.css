@@ -158,6 +158,36 @@ body {
     box-shadow: 0 0 8px #ff3d00;
 }
 
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    color: #ff3d00;
+    border: 2px solid #ff3d00;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 0 8px #ff3d00;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-btn:hover {
+    background-color: #ff3d00;
+    color: #fff;
+    box-shadow: 0 0 15px #ff3d00;
+    transform: translateY(-2px);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 8px #ff3d00;
+}
+
+
+
 /* ===============================
    SHOW CARDS
    =============================== */

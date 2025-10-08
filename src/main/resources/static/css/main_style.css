@@ -281,7 +281,7 @@ h1 {
     transform: scale(1.05);
 }
 
-.show-btn{
+.show-btn, #save-dates{
     text-decoration: none;
     color: #ff3d00;
     font-weight: bold;
@@ -295,13 +295,13 @@ h1 {
     text-shadow: 0 0 8px #ff3d00;
 }
 
-.show-btn:hover{
+.show-btn:hover, #save-dates:hover {
     background-color: #ff3d00;
     color: #fff;
     box-shadow: 0 0 20px #ff3d00, 0 0 30px #ff3d00;
 }
 
-.show-btn:active{
+.show-btn:active, #save-dates:active {
     transform: translateY(0);
     box-shadow: 0 0 10px #ff3d00;
 }
@@ -330,30 +330,34 @@ a:active {
     transform: translateY(0);
     box-shadow: 0 0 10px #ff3d00;
 }
-a[href="kino_administrator_page.html"] {
-    position: absolute;
+.back-btn {
+    position: fixed;
     top: 20px;
     left: 20px;
-    text-decoration: none;
+    background-color: transparent;
     color: #ff3d00;
-    font-weight: bold;
     border: 2px solid #ff3d00;
     border-radius: 8px;
     padding: 8px 16px;
-    background-color: transparent;
+    font-weight: bold;
+    text-decoration: none;
     text-shadow: 0 0 8px #ff3d00;
     transition: all 0.3s ease;
+    z-index: 1000;
 }
-a[href="kino_administrator_page.html"]:hover {
+
+.back-btn:hover {
     background-color: #ff3d00;
     color: #fff;
     box-shadow: 0 0 15px #ff3d00;
     transform: translateY(-2px);
 }
-a[href="kino_administrator_page.html"]:active {
+
+.back-btn:active {
     transform: translateY(0);
     box-shadow: 0 0 8px #ff3d00;
 }
+
 
 /* THEATER BUTTONS */
 .theaterbtn, .movietimebtn {
@@ -525,6 +529,7 @@ button[type="submit"]:active, button.ticket-btn:active {
     text-align: center;
 }
 
+
 /* UTILITY CLASSES */
 .center { text-align: center; }
 .hidden { display: none !important; }
@@ -549,3 +554,65 @@ button[type="submit"]:active, button.ticket-btn:active {
     .sweet-card .button-group { flex-direction: row; justify-content: center; }
 }
 
+
+/* ===============================
+   SWEET CARD BUTTON ENHANCEMENTS
+   =============================== */
+
+.sweet-card .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Make buttons larger and bolder */
+.sweet-card .editBtn,
+.sweet-card .deleteBtn {
+    font-size: 1rem;              /* larger text */
+    font-weight: bold;
+    padding: 10px 18px;           /* bigger buttons */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 8px rgba(255,61,0,0.4);
+    min-width: 100px;
+}
+
+/* Edit button – green glow */
+.sweet-card .editBtn {
+    background-color: #4caf50;
+    color: #fff;
+}
+.sweet-card .editBtn:hover {
+    background-color: #45a049;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px #4caf50;
+}
+
+/* Delete button – red glow */
+.sweet-card .deleteBtn {
+    background-color: #ff3d00;
+    color: #fff;
+}
+.sweet-card .deleteBtn:hover {
+    background-color: #e63600;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px #ff3d00;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 500px) {
+    .sweet-card .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .sweet-card .editBtn,
+    .sweet-card .deleteBtn {
+        width: 80%;
+        padding: 12px 0;
+        font-size: 1.1rem;
+    }
+}
