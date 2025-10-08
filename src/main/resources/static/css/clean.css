@@ -340,3 +340,9 @@ a.btn {
     background: transparent;
     cursor: default;
 }
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
