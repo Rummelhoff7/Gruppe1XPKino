@@ -1,34 +1,38 @@
-//---------------- sign-up -----------------
-document.getElementById("signup-form")?.addEventListener("submit", function(event) {
+// ---------------- SIGN-UP ----------------
+document.getElementById("signup-form")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const firstName = this.firstname.value.trim();
     const lastName = this.lastname.value.trim();
-    const username = this.username.value.trim(); // NEW
+    const username = this.username.value.trim();
     const password = this.password.value.trim();
-    const role = this.role.value;
+    const role = this.role.value; // must be one of EmployeeRole: KINO_ADMINISTRATOR, SALES_MANAGER, INSPECTOR
 
     fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, username, password, role }) // include username
+        body: JSON.stringify({ firstName, lastName, username, password, role })
     })
-        .then(res => res.json())
-        .then(data => {
+        .then(res => {
+            if (!res.ok) {
+                return res.text().then(msg => { throw new Error(msg); });
+            }
+            return res.json();
+        })
+        .then(() => {
             alert("User created successfully!");
             this.reset();
-
-            // Redirect to login page after successful signup
-            window.location.href = "index.html";
+            window.location.href = "index.html"; // back to login
         })
         .catch(err => {
             console.error(err);
-            alert("Error creating user.");
+            alert("Error creating user: " + err.message);
         });
 });
 
-//---------------- login -----------------
-document.querySelector(".login-box form")?.addEventListener("submit", function(event) {
+
+// ---------------- LOGIN ----------------
+document.querySelector(".login-box form")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const username = this.querySelector("input[type='text']").value.trim();
@@ -40,10 +44,24 @@ document.querySelector(".login-box form")?.addEventListener("submit", function(e
         body: JSON.stringify({ username, password })
     })
         .then(res => res.json())
-        .then(success => {
-            if (success) {
+        .then(data => {
+            if (data && data.success) {
                 alert("Login successful!");
-                window.location.href = "Imidlertidig_all_page.html"; // redirect on success
+
+                // Redirect based on role from backend
+                switch (data.role) {
+                    case "KINO_ADMINISTRATOR":
+                        window.location.href = "kino_administrator_page.html";
+                        break;
+                    case "SALES_MANAGER":
+                        window.location.href = "sales_page.html";
+                        break;
+                    case "INSPECTOR":
+                        alert("Inspector role — redirect not set up yet.");
+                        break;
+                    default:
+                        alert("Unknown role. Please contact admin.");
+                }
             } else {
                 alert("Incorrect username or password.");
             }

@@ -81,7 +81,7 @@ if (saveDatesButton) {
                 localStorage.removeItem("selectedTheater");
                 localStorage.removeItem("selectedMovie");
                 localStorage.removeItem("selectedTime");
-                window.location.href = "/screeningTheater.html"; // restart flow
+                window.location.href = "/kino_administrator_page.html"; // restart flow
             })
             .catch(err => console.error(err));
     });

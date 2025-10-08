@@ -69,10 +69,7 @@ public class ScreeningController {
 
     @GetMapping("/current_shows")
     public List<ShowDTO> getCurrentShows() {
-        LocalDate today = LocalDate.now();
-
-        return showRepository
-                .findByShowingStartDateLessThanEqualAndShowingEndDateGreaterThanEqual(today, today)
+        return showRepository.findAll()
                 .stream()
                 .map(show -> new ShowDTO(
                         show.getId(),
